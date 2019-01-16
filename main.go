@@ -75,7 +75,10 @@ func main() {
 	win, ctx := nktemplates.StartNuke()
 
 	pane1 := func() {
-
+		//A horizontal button bar.  Fires the callback when clicked
+		nktemplates.ButtonBar(ctx, []string{"Kill", "Continuous Kill"}, func(i int, s string) { log.Println(s) })
+	}
+	pane2 := func() {
 		/*
 			for _, vv := range procsps {
 				procs = append(procs, vv.Executable())
@@ -83,6 +86,9 @@ func main() {
 
 			sort.Strings(procs)
 		*/
+
+		//nk.NkLayoutRowDynamic(ctx, 40, 1)
+		//{
 
 		for _, name := range procsstr {
 			//node := vv.SubNodes[i]
@@ -94,6 +100,7 @@ func main() {
 				//Kill process or whatever
 			}
 		}
+		//}
 	}
 
 	exitC := make(chan struct{}, 1)
@@ -117,7 +124,7 @@ func main() {
 			}
 			glfw.PollEvents()
 
-			nktemplates.ClassicEmail3Pane(win, ctx, nil, pane1, pane1, pane1)
+			nktemplates.LeftCol(win, ctx, nil, pane1, pane2, pane1)
 			//TkRatWin(win, ctx, state, pane1, pane2, pane3)
 			time.Sleep(100 * time.Millisecond)
 		}
